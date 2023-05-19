@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import MovieCard from './MovieCard';
 
+// MovieList component
 const MovieList = () => {
+  // State for movies array
   const [movies, setMovies] = useState([
+    // Initial movies data
     {
       title: 'The Shawshank Redemption',
       description:
@@ -21,21 +24,27 @@ const MovieList = () => {
     },
   ]);
 
+  // State for title filter
   const [titleFilter, setTitleFilter] = useState('');
+  // State for rating filter
   const [ratingFilter, setRatingFilter] = useState(0);
 
+  // Event handler for title filter change
   const handleTitleFilterChange = (event) => {
     setTitleFilter(event.target.value);
   };
 
+  // Event handler for rating filter change
   const handleRatingFilterChange = (event) => {
     setRatingFilter(event.target.value);
   };
 
+  // Event handler for adding a new movie
   const handleAddMovie = (movie) => {
     setMovies([...movies, movie]);
   };
 
+  // Filter movies based on title and rating
   const filteredMovies = movies.filter(
     (movie) =>
       movie.title.toLowerCase().includes(titleFilter.toLowerCase()) &&
@@ -44,8 +53,8 @@ const MovieList = () => {
 
   return (
     <div>
+      {/* Filter inputs */}
       <div className="filters" style={{ marginBottom: '20px' }}>
-
         <input
           type="text"
           placeholder="Title"
@@ -59,11 +68,14 @@ const MovieList = () => {
           onChange={handleRatingFilterChange}
         />
       </div>
+      {/* Movie list */}
       <div className="movie-list">
+        {/* Render MovieCard component for each filtered movie */}
         {filteredMovies.map((movie) => (
           <MovieCard key={movie.title} movie={movie} />
         ))}
       </div>
+      {/* Add movie button */}
       <button onClick={() => handleAddMovie({ title: 'New Movie', rating: 0 })}>
         Add Movie
       </button>
